@@ -8,7 +8,7 @@ let conn;
 try {
   conn = await client.connect();
   console.log("Connected to database.");
-} catch(e) {
+} catch (e) {
   console.error(e);
 }
 

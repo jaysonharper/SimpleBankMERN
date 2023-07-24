@@ -1,53 +1,56 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import Card from "../components/Card";
+import { baseUrl } from "../config";
 
 export default function AllAccounts() {
+  let [accounts, setAccounts] = useState([]);
+
+  useEffect(() => {
+    const loadAccounts = async () => {
+      let results = await fetch(`${baseUrl}/accounts`).then((resp) =>
+        resp.json()
+      );
+      setAccounts(results);
+    };
+
+    loadAccounts();
+  }, []);
+
   return (
-    <h1>All Accounts Page</h1>
-    // <Card
-    //   header={"All User Data"}
-    //   body={
-    //     <>
-    //       <AllAccountsTable />
-    //     </>
-    //   }
-    // />
+    <Card
+      header={"All Accounts"}
+      body={
+        <>
+          <div>
+            <table className="table">
+              <tbody>
+                <tr>
+                  <th>Email</th>
+                  <th>Name</th>
+                  <th>Password</th>
+                  <th>Balance</th>
+                </tr>
+                {accounts.map((account, index) => {
+                  return <AccountRow {...account} key={index} />;
+                })}
+              </tbody>
+            </table>
+          </div>
+        </>
+      }
+    />
   );
 }
 
-function AllAccountsTable() {
-  // const users = React.useContext(UserContext).users;
-  // console.log(users);
-  // let userHeaders = [];
-  // userHeaders.push(
-  //   <tr>
-  //     <th>Email</th>
-  //     <th>Name</th>
-  //     <th>Password</th>
-  //     <th>Balance</th>
-  //   </tr>
-  // );
-
-  // let userData = [];
-  // users.map((item, index) => {
-  //   const { email, name, password, balance } = item;
-  //   userData.push(
-  //     <tr key={index}>
-  //       <td>{email}</td>
-  //       <td>{name}</td>
-  //       <td>{password}</td>
-  //       <td>${balance}</td>
-  //     </tr>
-  //   );
-  // });
-
-  // return (
-  //   <div>
-  //     <table className="table">
-  //       <tbody>
-  //         {userHeaders[0]}
-  //         {userData}
-  //       </tbody>
-  //     </table>
-  //   </div>
-  // );
+function AccountRow(props) {
+  const { email, name, password, balance, index } = props;
+  return (
+    <tr key={index}>
+      <td>{email}</td>
+      <td>{name}</td>
+      <td>{password}</td>
+      <td>${balance}</td>
+    </tr>
+  );
 }
+

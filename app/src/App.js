@@ -14,7 +14,7 @@ function App() {
       <NavBar />
       {/* <UserContext.Provider
         value={{
-          users: [
+          accounts: [
             {
               name: "Jayson Harper",
               email: "jayson@test.com",
