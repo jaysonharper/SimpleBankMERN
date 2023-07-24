@@ -1,15 +1,13 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import Card from "../components/Card";
 import { baseUrl } from "../config";
-import { UserContext } from "../App";
 
-export default function CreateAccount() {
+export default function CreateAccount(props) {
   const [show, setShow] = useState(true);
   const [status, setStatus] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const user = useContext(UserContext);
 
   function validate(field, label) {
     let isValid = true;
@@ -41,9 +39,8 @@ export default function CreateAccount() {
         balance: 100
       }),
     }).then((resp) => resp.json());
-    // console.log(user);
-    user.accounts = [];
-    user.accounts.push({ name, email, password, balance: 100 });
+    props.setUserEmail(email);
+    props.setUserBalance(100);
     setShow(false);
   };
 

@@ -1,21 +1,18 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import Card from "../components/Card";
 import { baseUrl } from "../config";
-import { UserContext } from "../App";
 
-export default function Login() {
+export default function Login(props) {
   const [show, setShow] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const user = useContext(UserContext);
 
   const handleLogin = async () => {
     let result = await fetch(`${baseUrl}/accounts/Login/${email}/${password}`).then(
       (resp) => resp.json()
     );
-    user.accounts = [];
-    user.accounts.push(result);
-    // console.log(user);
+    props.setUserEmail(result.email);
+    props.setUserBalance(result.balance);
     setShow(false);
   };
 

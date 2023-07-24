@@ -1,13 +1,6 @@
-import React, { useEffect, useState, useContext } from "react";
-import { UserContext } from "../App";
+import React from "react";
 
-export default function NavBar() {
-  // const [userEmail, setUserEmail] = useState("");
-  // setUserEmail(currUser.email);
-  // useEffect(() => {
-  //   document.getElementById("userEmail").innerHTML = "test";
-  // }, []);
-
+export default function NavBar(props) {
   function addNavBorder(e) {
     // Clear all borders first
     document.getElementById("home").style.border = "none";
@@ -74,17 +67,17 @@ export default function NavBar() {
               All Accounts
             </a>
           </li>
-          <li className="nav-item" onClick={addNavBorder}>
-            <a className="nav-link text-white" title="Log In" href="#/Login">
-              Log In
-            </a>
-          </li>
         </ul>
         <div
           className="navbar-collapse justify-content-end"
           id="navbarCollapse"
         >
           <ul className="navbar-nav text-white">
+            <li className="nav-item">
+              <a className="nav-link text-white" title="Log In" href="#/Login">
+                {props.userEmail === "" ? "Log In" : ""}
+              </a>
+            </li>
             <li className="nav-item" onClick={addNavBorder}>
               <a
                 id="userEmail"
@@ -92,7 +85,9 @@ export default function NavBar() {
                 title="User Name"
                 href="#/Logout"
               >
-                UserEmail Here
+                {props.userBalance > -1
+                  ? "$ " + props.userBalance + " | " + props.userEmail
+                  : props.userEmail}
               </a>
             </li>
             <li className="nav-item">&nbsp;&nbsp;&nbsp;</li>

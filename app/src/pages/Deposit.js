@@ -1,14 +1,10 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import Card from "../components/Card";
 import { baseUrl } from "../config";
-import { UserContext } from "../App";
 
-export default function Deposit() {
+export default function Deposit(props) {
   const [status, setStatus] = useState("");
   const [deposit, setDeposit] = useState(0);
-  const currUser = useContext(UserContext).accounts[0];
-  // console.log(currUser.name);
-  // console.log(currUser);
 
   function valid() {
     if (deposit < 0) {
@@ -28,26 +24,24 @@ export default function Deposit() {
     // console.log("amount to deposit: " + deposit);
     if (!valid()) return;
     // Deposit amount to the current user's account balance.
-    // console.log("currUser balance before: " + currUser.balance);
-    await fetch(`${baseUrl}/accounts/deposit/${currUser.email}/${deposit}`, {
+    await fetch(`${baseUrl}/accounts/deposit/${props.userEmail}/${deposit}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
       },
     });
-    currUser.balance = Number(currUser.balance) + Number(deposit);
-    // console.log("currUser balance after: " + currUser.balance);
+    props.setUserBalance(Number(props.userBalance) + Number(deposit));
     setDeposit(0);
   };
 
   return (
     <Card
       maxWidth="18rem"
-      header={"Deposit | " + currUser.name}
+      header={"Deposit"}
       status={status}
       body={
         <>
-          <h4 className="text-info">Balance: $ {currUser.balance}</h4>
+          <h4 className="text-info">Balance: $ {props.userBalance > -1 ? props.userBalance : "[n/a]"}</h4>
           <br />
           <input
             type="number"

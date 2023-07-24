@@ -1,4 +1,4 @@
-import React, { createContext } from "react";
+import React, { useState } from "react";
 import { HashRouter, Route, Routes } from "react-router-dom";
 
 import NavBar from "./components/Navigation";
@@ -9,35 +9,38 @@ import Withdraw from "./pages/Withdraw";
 import AllAccounts from "./pages/All";
 import Login from "./pages/Login";
 
-export const UserContext = createContext();
-
 function App() {
+  const [userEmail, setUserEmail] = useState("");
+  const [userBalance, setUserBalance] = useState(-1);
   return (
     <HashRouter>
-      <UserContext.Provider
-        value={{
-          accounts: [
-            {
-              name: "Jayson Harper",
-              email: "jayson@test.com",
-              password: "secret",
-              balance: 100,
-            },
-          ],
-        }}
-      >
-        <NavBar />
-        <div className="container" style={{ padding: "20px" }}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/CreateAccount" element={<CreateAccount />} />
-            <Route path="/Deposit" element={<Deposit />} />
-            <Route path="/Withdraw" element={<Withdraw />} />
-            <Route path="/AllAccounts" element={<AllAccounts />} />
-            <Route path="/LogIn" element={<Login />} />
-          </Routes>
-        </div>
-      </UserContext.Provider>
+      <NavBar {...{ userEmail, userBalance }} />
+      <div className="container" style={{ padding: "20px" }}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/CreateAccount"
+            element={<CreateAccount {...{ setUserBalance, setUserEmail }} />}
+          />
+          <Route
+            path="/Deposit"
+            element={
+              <Deposit {...{ userEmail, userBalance, setUserBalance }} />
+            }
+          />
+          <Route
+            path="/Withdraw"
+            element={
+              <Withdraw {...{ userEmail, userBalance, setUserBalance }} />
+            }
+          />
+          <Route path="/AllAccounts" element={<AllAccounts />} />
+          <Route
+            path="/LogIn"
+            element={<Login {...{ setUserEmail, setUserBalance }} />}
+          />
+        </Routes>
+      </div>
     </HashRouter>
   );
 }

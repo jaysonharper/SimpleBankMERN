@@ -1,19 +1,17 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import Card from "../components/Card";
 import { baseUrl } from "../config";
-import { UserContext } from "../App";
 
-export default function Withdraw() {
+export default function Withdraw(props) {
   const [status, setStatus] = useState("");
   const [withdraw, setWithdraw] = useState(0);
-  const currUser = useContext(UserContext).accounts[0];
 
   function valid() {
     let isValid = true;
     if (withdraw < 0) {
       setStatus("Withdraw amount cannot be negative.");
       isValid = false;
-    } else if (withdraw > currUser.balance) {
+    } else if (withdraw > props.userBalance) {
       setStatus("Funds not available.");
       isValid = false;
     }
@@ -30,26 +28,24 @@ export default function Withdraw() {
     // console.log("amount to withdraw: " + withdraw);
     if (!valid()) return;
     // Withdraw amount from the current user's account balance.
-    // console.log("currUser balance before: " + currUser.balance);
-    await fetch(`${baseUrl}/accounts/withdraw/${currUser.email}/${withdraw}`, {
+    await fetch(`${baseUrl}/accounts/withdraw/${props.userEmail}/${withdraw}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
       },
     });
-    currUser.balance = Number(currUser.balance) - Number(withdraw);
-    // console.log("currUser balance after: " + currUser.balance);
+    props.setUserBalance(Number(props.userBalance) - Number(withdraw));
     setWithdraw(0);
   }
 
   return (
     <Card
       maxWidth="18rem"
-      header={"Withdraw | " + currUser.name}
+      header={"Withdraw"}
       status={status}
       body={
         <>
-          <h4 className="text-info">Balance: $ {currUser.balance}</h4>
+          <h4 className="text-info">Balance: $ {props.userBalance > -1 ? props.userBalance : "[n/a]"}</h4>
           <br />
           <input
             type="number"
