@@ -7,7 +7,7 @@ export default function Deposit() {
   const [status, setStatus] = useState("");
   const [deposit, setDeposit] = useState(0);
   const currUser = useContext(UserContext).accounts[0];
-  console.log(currUser.name);
+  // console.log(currUser.name);
   // console.log(currUser);
 
   function valid() {

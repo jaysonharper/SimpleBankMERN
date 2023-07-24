@@ -1,6 +1,13 @@
-import React from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { UserContext } from "../App";
 
 export default function NavBar() {
+  // const [userEmail, setUserEmail] = useState("");
+  // setUserEmail(currUser.email);
+  // useEffect(() => {
+  //   document.getElementById("userEmail").innerHTML = "test";
+  // }, []);
+
   function addNavBorder(e) {
     // Clear all borders first
     document.getElementById("home").style.border = "none";
@@ -41,26 +48,56 @@ export default function NavBar() {
             </a>
           </li>
           <li className="nav-item" onClick={addNavBorder}>
-            <a className="nav-link text-white" title="Deposit Money" href="#/Deposit">
+            <a
+              className="nav-link text-white"
+              title="Deposit Money"
+              href="#/Deposit"
+            >
               Deposit
             </a>
           </li>
           <li className="nav-item" onClick={addNavBorder}>
-            <a className="nav-link text-white" title="Withdraw Money" href="#/Withdraw">
+            <a
+              className="nav-link text-white"
+              title="Withdraw Money"
+              href="#/Withdraw"
+            >
               Withdraw
             </a>
           </li>
           <li className="nav-item" onClick={addNavBorder}>
-            <a className="nav-link text-white" title="All Accounts" href="#/AllAccounts">
+            <a
+              className="nav-link text-white"
+              title="All Accounts"
+              href="#/AllAccounts"
+            >
               All Accounts
             </a>
           </li>
           <li className="nav-item" onClick={addNavBorder}>
-            <a className="nav-link text-white" title="Log In" href="#/LogIn">
+            <a className="nav-link text-white" title="Log In" href="#/Login">
               Log In
             </a>
           </li>
         </ul>
+        <div
+          className="navbar-collapse justify-content-end"
+          id="navbarCollapse"
+        >
+          <ul className="navbar-nav text-white">
+            <li className="nav-item" onClick={addNavBorder}>
+              <a
+                id="userEmail"
+                className="nav-link text-white"
+                title="User Name"
+                href="#/Logout"
+              >
+                UserEmail Here
+              </a>
+            </li>
+            <li className="nav-item">&nbsp;&nbsp;&nbsp;</li>
+          </ul>
+        </div>
       </nav>
     </>
   );
