@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Card from "../components/Card";
 import { baseUrl } from "../config";
+import { UserContext } from "../App";
 
 export default function CreateAccount() {
   const [show, setShow] = useState(true);
@@ -8,7 +9,7 @@ export default function CreateAccount() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const ctx = React.useContext(UserContext);
+  const user = useContext(UserContext);
 
   function validate(field, label) {
     let isValid = true;
@@ -28,7 +29,6 @@ export default function CreateAccount() {
     if (!validate(name, "name")) return;
     if (!validate(email, "email")) return;
     if (!validate(password, "password")) return;
-    // ctx.users.push({ name, email, password, balance: 100 });
     await fetch(`${baseUrl}/accounts`, {
       method: "POST",
       headers: {
@@ -41,6 +41,9 @@ export default function CreateAccount() {
         balance: 100
       }),
     }).then((resp) => resp.json());
+    console.log(user);
+    user.accounts = [];
+    user.accounts.push({ name, email, password, balance: 100 });
     setShow(false);
   };
 

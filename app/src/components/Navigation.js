@@ -22,8 +22,8 @@ export default function NavBar() {
           id="home"
           className="navbar-brand"
           title="Home Page"
-          href="/"
-          style={{borderBottom: "solid"}}
+          href="#/"
+          style={{ borderBottom: "solid" }}
           onClick={addNavBorder}
         >
           Harper Bank

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext } from "react";
 import { HashRouter, Route, Routes } from "react-router-dom";
 
 import NavBar from "./components/Navigation";
@@ -8,11 +8,12 @@ import Deposit from "./pages/Deposit";
 import Withdraw from "./pages/Withdraw";
 import AllAccounts from "./pages/All";
 
+export const UserContext = createContext();
+
 function App() {
   return (
     <HashRouter>
-      <NavBar />
-      {/* <UserContext.Provider
+      <UserContext.Provider
         value={{
           accounts: [
             {
@@ -23,17 +24,18 @@ function App() {
             },
           ],
         }}
-      > */}
-      <div className="container" style={{ padding: "20px" }}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/CreateAccount" element={<CreateAccount />} />
-          <Route path="/Deposit" element={<Deposit />} />
-          <Route path="/Withdraw" element={<Withdraw />} />
-          <Route path="/AllAccounts" element={<AllAccounts />} />
-        </Routes>
-      </div>
-      {/* </UserContext.Provider> */}
+      >
+        <NavBar />
+        <div className="container" style={{ padding: "20px" }}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/CreateAccount" element={<CreateAccount />} />
+            <Route path="/Deposit" element={<Deposit />} />
+            <Route path="/Withdraw" element={<Withdraw />} />
+            <Route path="/AllAccounts" element={<AllAccounts />} />
+          </Routes>
+        </div>
+      </UserContext.Provider>
     </HashRouter>
   );
 }

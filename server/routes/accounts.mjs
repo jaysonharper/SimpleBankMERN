@@ -3,19 +3,47 @@ import db from "../db/conn.mjs";
 
 const accounts = express.Router();
 
-// Get all accounts (use http://localhost:5051/accounts to test)
+// Get all accounts ( http://localhost:5051/accounts GET)
 accounts.get("/", async (req, res) => {
   let collection = db.collection("accounts");
   let results = await collection.find({}).limit(50).toArray();
   res.send(results).status(200);
 });
 
-// Create new account
+// Create new account ( http://localhost:5051/accounts POST)
 accounts.post("/", async (req, res) => {
   let collection = db.collection("accounts");
   let newDocument = req.body;
   let result = await collection.insertOne(newDocument);
   res.send(result).status(204);
+});
+
+// Deposit to balance ( http://localhost:5051/accounts/deposit/{email}/{amount} PATCH)
+accounts.patch("/deposit/:email/:amount", async (req, res) => {
+  const query = { email: req.params.email };
+  const amount = Number(req.params.amount);
+  const updates = {
+    $inc: { balance: amount },
+  };
+
+  let collection = db.collection("accounts");
+  let result = await collection.updateOne(query, updates);
+
+  res.send(result).status(200);
+});
+
+// Withdraw from balance ( http://localhost:5051/accounts/withdraw/{email}/{amount} PATCH)
+accounts.patch("/withdraw/:email/:amount", async (req, res) => {
+  const query = { email: req.params.email };
+  const amount = Number(req.params.amount);
+  const updates = {
+    $inc: { balance: -amount },
+  };
+
+  let collection = db.collection("accounts");
+  let result = await collection.updateOne(query, updates);
+
+  res.send(result).status(200);
 });
 
 export default accounts;
