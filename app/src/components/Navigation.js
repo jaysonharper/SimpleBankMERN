@@ -17,56 +17,50 @@ export default function NavBar() {
   }
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <a
-          id="home"
-          className="navbar-brand"
-          title="Home Page"
-          href="#/"
-          style={{ borderBottom: "solid" }}
-          onClick={addNavBorder}
-        >
-          Harper Bank
-        </a>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav">
-            <li className="nav-item" onClick={addNavBorder}>
-              <a
-                className="nav-link"
-                title="Create New Account"
-                href="#/CreateAccount"
-              >
-                Create Account
-              </a>
-            </li>
-            <li className="nav-item" onClick={addNavBorder}>
-              <a className="nav-link" title="Deposit Money" href="#/Deposit">
-                Deposit
-              </a>
-            </li>
-            <li className="nav-item" onClick={addNavBorder}>
-              <a className="nav-link" title="Withdraw Money" href="#/Withdraw">
-                Withdraw
-              </a>
-            </li>
-            <li className="nav-item" onClick={addNavBorder}>
-              <a className="nav-link" title="All Accounts" href="#/AllAccounts">
-                All Accounts
-              </a>
-            </li>
-          </ul>
-        </div>
+      <nav className="navbar navbar-expand-lg navbar-light bg-secondary">
+        <ul className="navbar-nav text-white">
+          <li className="nav-item">
+            <a
+              id="home"
+              className="navbar-brand text-white"
+              title="Home Page"
+              href="#/"
+              style={{ borderBottom: "solid" }}
+              onClick={addNavBorder}
+            >
+              Harper Bank
+            </a>
+          </li>
+          <li className="nav-item" onClick={addNavBorder}>
+            <a
+              className="nav-link text-white"
+              title="Create New Account"
+              href="#/CreateAccount"
+            >
+              Create Account
+            </a>
+          </li>
+          <li className="nav-item" onClick={addNavBorder}>
+            <a className="nav-link text-white" title="Deposit Money" href="#/Deposit">
+              Deposit
+            </a>
+          </li>
+          <li className="nav-item" onClick={addNavBorder}>
+            <a className="nav-link text-white" title="Withdraw Money" href="#/Withdraw">
+              Withdraw
+            </a>
+          </li>
+          <li className="nav-item" onClick={addNavBorder}>
+            <a className="nav-link text-white" title="All Accounts" href="#/AllAccounts">
+              All Accounts
+            </a>
+          </li>
+          <li className="nav-item" onClick={addNavBorder}>
+            <a className="nav-link text-white" title="Log In" href="#/LogIn">
+              Log In
+            </a>
+          </li>
+        </ul>
       </nav>
     </>
   );

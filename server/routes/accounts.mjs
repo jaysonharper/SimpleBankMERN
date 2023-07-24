@@ -10,6 +10,18 @@ accounts.get("/", async (req, res) => {
   res.send(results).status(200);
 });
 
+// Login ( http://localhost:5051/accounts/Login/{email}/{password} GET)
+accounts.get("/Login/:email/:password", async (req, res) => {
+  const query = { email: req.params.email };
+  let collection = db.collection("accounts");
+  let result = await collection.findOne(query);
+
+  if (!result) res.send("User not found").status(404);
+  else if (result.password !== req.params.password)
+    res.send("Wrong password").status(401);
+  else res.send(result).status(200);
+});
+
 // Create new account ( http://localhost:5051/accounts POST)
 accounts.post("/", async (req, res) => {
   let collection = db.collection("accounts");

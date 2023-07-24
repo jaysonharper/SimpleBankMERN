@@ -7,7 +7,8 @@ export default function Deposit() {
   const [status, setStatus] = useState("");
   const [deposit, setDeposit] = useState(0);
   const currUser = useContext(UserContext).accounts[0];
-  console.log(currUser);
+  console.log(currUser.name);
+  // console.log(currUser);
 
   function valid() {
     if (deposit < 0) {
@@ -24,10 +25,10 @@ export default function Deposit() {
   }
 
   const handleDeposit = async () => {
-    console.log("amount to deposit: " + deposit);
+    // console.log("amount to deposit: " + deposit);
     if (!valid()) return;
     // Deposit amount to the current user's account balance.
-    console.log("currUser balance before: " + currUser.balance);
+    // console.log("currUser balance before: " + currUser.balance);
     await fetch(`${baseUrl}/accounts/deposit/${currUser.email}/${deposit}`, {
       method: "PATCH",
       headers: {
@@ -35,7 +36,7 @@ export default function Deposit() {
       },
     });
     currUser.balance = Number(currUser.balance) + Number(deposit);
-    console.log("currUser balance after: " + currUser.balance);
+    // console.log("currUser balance after: " + currUser.balance);
     setDeposit(0);
   };
 

@@ -7,6 +7,7 @@ import CreateAccount from "./pages/Create";
 import Deposit from "./pages/Deposit";
 import Withdraw from "./pages/Withdraw";
 import AllAccounts from "./pages/All";
+import Login from "./pages/Login";
 
 export const UserContext = createContext();
 
@@ -33,6 +34,7 @@ function App() {
             <Route path="/Deposit" element={<Deposit />} />
             <Route path="/Withdraw" element={<Withdraw />} />
             <Route path="/AllAccounts" element={<AllAccounts />} />
+            <Route path="/LogIn" element={<Login />} />
           </Routes>
         </div>
       </UserContext.Provider>
