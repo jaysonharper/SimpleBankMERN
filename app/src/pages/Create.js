@@ -25,7 +25,7 @@ export default function CreateAccount() {
   }
 
   const handleCreate = async () => {
-    console.log("name: " + name, ", email: " + email, ", pass: " + password);
+    // console.log("name: " + name, ", email: " + email, ", pass: " + password);
     if (!validate(name, "name")) return;
     if (!validate(email, "email")) return;
     if (!validate(password, "password")) return;
@@ -41,7 +41,7 @@ export default function CreateAccount() {
         balance: 100
       }),
     }).then((resp) => resp.json());
-    console.log(user);
+    // console.log(user);
     user.accounts = [];
     user.accounts.push({ name, email, password, balance: 100 });
     setShow(false);
