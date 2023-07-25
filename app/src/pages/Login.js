@@ -3,23 +3,39 @@ import Card from "../components/Card";
 import { baseUrl } from "../config";
 
 export default function Login(props) {
+  const [status, setStatus] = useState("");
   const [show, setShow] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
-    let result = await fetch(`${baseUrl}/accounts/Login/${email}/${password}`).then(
-      (resp) => resp.json()
-    );
-    props.setUserEmail(result.email);
-    props.setUserBalance(result.balance);
-    setShow(false);
+    let result = await fetch(
+      `${baseUrl}/accounts/Login/${email}/${password}`
+    ).then((resp) => resp.json());
+    // console.log(result);
+    if (result.err) {
+        handleError(result.err);
+    } else {
+      props.setUserEmail(result.email);
+      props.setUserBalance(result.balance);
+      setShow(false);
+    }
   };
+
+  function handleError(err) {
+    setStatus(err);
+    setTimeout(() => resetOnError(), 5000);
+  }
+
+  function resetOnError() {
+    setStatus("");
+  }
 
   return (
     <Card
       maxWidth="18rem"
       header="Login"
+      status={status}
       body={
         show ? (
           <>
@@ -46,7 +62,7 @@ export default function Login(props) {
             />
             <br />
             <button
-              disabled={!email && !password}
+              disabled={!email || !password}
               type="submit"
               className="btn btn-primary"
               onClick={handleLogin}

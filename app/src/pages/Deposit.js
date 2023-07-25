@@ -41,9 +41,12 @@ export default function Deposit(props) {
       status={status}
       body={
         <>
-          <h4 className="text-info">Balance: $ {props.userBalance > -1 ? props.userBalance : "[n/a]"}</h4>
+          <h4 className="text-info">
+            Balance: $ {props.userBalance > -1 ? props.userBalance : "[n/a]"}
+          </h4>
           <br />
           <input
+            disabled={!props.userEmail}
             type="number"
             className="form-control"
             id="deposit"

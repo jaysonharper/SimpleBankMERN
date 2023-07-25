@@ -8,6 +8,7 @@ import Deposit from "./pages/Deposit";
 import Withdraw from "./pages/Withdraw";
 import AllAccounts from "./pages/All";
 import Login from "./pages/Login";
+import Logout from "./pages/Logout";
 
 function App() {
   const [userEmail, setUserEmail] = useState("");
@@ -36,8 +37,12 @@ function App() {
           />
           <Route path="/AllAccounts" element={<AllAccounts />} />
           <Route
-            path="/LogIn"
+            path="/Login"
             element={<Login {...{ setUserEmail, setUserBalance }} />}
+          />
+          <Route
+            path="/Logout"
+            element={<Logout {...{ setUserEmail, setUserBalance }} />}
           />
         </Routes>
       </div>

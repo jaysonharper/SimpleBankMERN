@@ -16,9 +16,9 @@ accounts.get("/Login/:email/:password", async (req, res) => {
   let collection = db.collection("accounts");
   let result = await collection.findOne(query);
 
-  if (!result) res.send("User not found").status(404);
+  if (!result) res.send({err: "User Not Found"}).status(404);
   else if (result.password !== req.params.password)
-    res.send("Wrong password").status(401);
+    res.send({err: "Wrong Password"}).status(401);
   else res.send(result).status(200);
 });
 

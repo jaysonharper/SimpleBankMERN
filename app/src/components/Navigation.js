@@ -9,9 +9,10 @@ export default function NavBar(props) {
       item.style.border = "none";
     }
     // Add border to current target
+    // console.log(e.currentTarget.id);
     if (e.currentTarget.id === "home") {
       e.currentTarget.style.borderBottom = "solid";
-    } else {
+    } else if (!e.currentTarget.id) {
       e.currentTarget.style.border = "solid";
     }
   }
@@ -74,16 +75,23 @@ export default function NavBar(props) {
         >
           <ul className="navbar-nav text-white">
             <li className="nav-item">
-              <a className="nav-link text-white" title="Log In" href="#/Login">
+              <a
+                id="login"
+                className="nav-link text-white"
+                title="Log In"
+                href="#/Login"
+                onClick={addNavBorder}
+              >
                 {props.userEmail === "" ? "Log In" : ""}
               </a>
             </li>
-            <li className="nav-item" onClick={addNavBorder}>
+            <li className="nav-item">
               <a
-                id="userEmail"
+                id="logout"
                 className="nav-link text-white"
                 title="User Name"
                 href="#/Logout"
+                onClick={addNavBorder}
               >
                 {props.userBalance > -1
                   ? "$ " + props.userBalance + " | " + props.userEmail
