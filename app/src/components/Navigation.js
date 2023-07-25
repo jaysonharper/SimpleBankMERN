@@ -94,8 +94,8 @@ export default function NavBar(props) {
                 onClick={addNavBorder}
               >
                 {props.userBalance > -1
-                  ? "$ " + props.userBalance + " | " + props.userEmail
-                  : props.userEmail}
+                  ? ("$ " + props.userBalance + " | " + props.userEmail + (props.userAdmin ? " (admin)" : ""))
+                  : (props.userEmail)}
               </a>
             </li>
             <li className="nav-item">&nbsp;&nbsp;&nbsp;</li>

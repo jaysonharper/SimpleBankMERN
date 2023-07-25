@@ -7,6 +7,7 @@ export default function Logout(props) {
   const handleLogout = () => {
     props.setUserEmail("");
     props.setUserBalance(-1);
+    props.setUserAdmin(false);
     setShow(false);
   };
 

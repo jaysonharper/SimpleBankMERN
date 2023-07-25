@@ -13,15 +13,20 @@ import Logout from "./pages/Logout";
 function App() {
   const [userEmail, setUserEmail] = useState("");
   const [userBalance, setUserBalance] = useState(-1);
+  const [userAdmin, setUserAdmin] = useState(false);
   return (
     <HashRouter>
-      <NavBar {...{ userEmail, userBalance }} />
+      <NavBar {...{ userEmail, userBalance, userAdmin }} />
       <div className="container" style={{ padding: "20px" }}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route
             path="/CreateAccount"
-            element={<CreateAccount {...{ setUserBalance, setUserEmail }} />}
+            element={
+              <CreateAccount
+                {...{ setUserBalance, setUserEmail, setUserAdmin }}
+              />
+            }
           />
           <Route
             path="/Deposit"
@@ -35,14 +40,17 @@ function App() {
               <Withdraw {...{ userEmail, userBalance, setUserBalance }} />
             }
           />
-          <Route path="/AllAccounts" element={<AllAccounts />} />
+          <Route
+            path="/AllAccounts"
+            element={<AllAccounts {...{ setUserEmail, setUserBalance, userAdmin, setUserAdmin }} />}
+          />
           <Route
             path="/Login"
-            element={<Login {...{ setUserEmail, setUserBalance }} />}
+            element={<Login {...{ setUserEmail, setUserBalance, setUserAdmin }} />}
           />
           <Route
             path="/Logout"
-            element={<Logout {...{ setUserEmail, setUserBalance }} />}
+            element={<Logout {...{ setUserEmail, setUserBalance, setUserAdmin }} />}
           />
         </Routes>
       </div>

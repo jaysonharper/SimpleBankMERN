@@ -7,6 +7,7 @@ export default function CreateAccount(props) {
   const [status, setStatus] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [admin, setAdmin] = useState(false);
   const [password, setPassword] = useState("");
 
   function validate(field, label) {
@@ -26,7 +27,8 @@ export default function CreateAccount(props) {
     // console.log("name: " + name, ", email: " + email, ", pass: " + password);
     if (!validate(name, "name")) return;
     if (!validate(email, "email")) return;
-    if (!validate(password, "password")) return;
+    // if (!validate(password, "password")) return;
+    console.log(admin);
     await fetch(`${baseUrl}/accounts`, {
       method: "POST",
       headers: {
@@ -36,11 +38,13 @@ export default function CreateAccount(props) {
         name,
         email,
         password,
-        balance: 100
+        admin,
+        balance: 100,
       }),
     }).then((resp) => resp.json());
     props.setUserEmail(email);
     props.setUserBalance(100);
+    props.setUserAdmin(admin);
     setShow(false);
   };
 
@@ -59,7 +63,6 @@ export default function CreateAccount(props) {
       body={
         show ? (
           <>
-            Name
             <br />
             <input
               type="input"
@@ -70,8 +73,6 @@ export default function CreateAccount(props) {
               onChange={(e) => setName(e.currentTarget.value)}
             />
             <br />
-            Email
-            <br />
             <input
               type="input"
               className="form-control"
@@ -81,8 +82,6 @@ export default function CreateAccount(props) {
               onChange={(e) => setEmail(e.currentTarget.value)}
             />
             <br />
-            Password
-            <br />
             <input
               type="password"
               className="form-control"
@@ -91,6 +90,17 @@ export default function CreateAccount(props) {
               value={password}
               onChange={(e) => setPassword(e.currentTarget.value)}
             />
+            <br />
+            <input
+              type="checkbox"
+              id="admin"
+              name="admin"
+              checked={admin}
+              onChange={(e) => setAdmin(e.currentTarget.checked)}
+            />
+            <label htmlFor="admin" className="text-dark">
+              &nbsp;Admin
+            </label>
             <br />
             <button
               disabled={!name && !email && !password}

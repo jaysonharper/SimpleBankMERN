@@ -11,7 +11,7 @@ accounts.get("/", async (req, res) => {
 });
 
 // Login ( http://localhost:5051/accounts/Login/{email}/{password} GET)
-accounts.get("/Login/:email/:password", async (req, res) => {
+accounts.get("/login/:email/:password", async (req, res) => {
   const query = { email: req.params.email };
   let collection = db.collection("accounts");
   let result = await collection.findOne(query);
@@ -54,6 +54,24 @@ accounts.patch("/withdraw/:email/:amount", async (req, res) => {
 
   let collection = db.collection("accounts");
   let result = await collection.updateOne(query, updates);
+
+  res.send(result).status(200);
+});
+
+// Delete All Accounts ( http://localhost:5051/accounts/delete DELETE)
+accounts.delete("/delete", async (req, res) => {
+  let collection = db.collection("accounts");
+  let result = await collection.deleteMany({});
+
+  res.send(result).status(200);
+});
+
+// Delete account ( http://localhost:5051/accounts/delete/{email} DELETE)
+accounts.delete("/delete/:email", async (req, res) => {
+  const query = { email: req.params.email };
+
+  let collection = db.collection("accounts");
+  let result = await collection.deleteOne(query);
 
   res.send(result).status(200);
 });
