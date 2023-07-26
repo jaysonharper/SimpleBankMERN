@@ -14,6 +14,7 @@ function App() {
   const [userEmail, setUserEmail] = useState("");
   const [userBalance, setUserBalance] = useState(-1);
   const [userAdmin, setUserAdmin] = useState(false);
+  const [userName, setUserName] = useState("");
   return (
     <HashRouter>
       <NavBar {...{ userEmail, userBalance, userAdmin }} />
@@ -24,7 +25,7 @@ function App() {
             path="/CreateAccount"
             element={
               <CreateAccount
-                {...{ setUserBalance, setUserEmail, setUserAdmin }}
+                {...{ setUserBalance, setUserEmail, setUserAdmin, setUserName }}
               />
             }
           />
@@ -46,11 +47,11 @@ function App() {
           />
           <Route
             path="/Login"
-            element={<Login {...{ setUserEmail, setUserBalance, setUserAdmin }} />}
+            element={<Login {...{ setUserEmail, setUserBalance, setUserAdmin, setUserName }} />}
           />
           <Route
             path="/Logout"
-            element={<Logout {...{ setUserEmail, setUserBalance, setUserAdmin }} />}
+            element={<Logout {...{ setUserEmail, userEmail, setUserBalance, setUserAdmin, userName, setUserName }} />}
           />
         </Routes>
       </div>

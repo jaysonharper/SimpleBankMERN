@@ -45,6 +45,7 @@ export default function CreateAccount(props) {
     props.setUserEmail(email);
     props.setUserBalance(100);
     props.setUserAdmin(admin);
+    props.setUserName(name);
     setShow(false);
   };
 

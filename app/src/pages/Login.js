@@ -19,6 +19,7 @@ export default function Login(props) {
       props.setUserEmail(result.email);
       props.setUserBalance(result.balance);
       props.setUserAdmin(result.admin);
+      props.setUserName(result.name);
       setShow(false);
     }
   };
